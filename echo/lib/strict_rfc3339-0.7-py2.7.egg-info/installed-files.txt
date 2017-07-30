@@ -1,0 +1,6 @@
+../strict_rfc3339.py
+../strict_rfc3339.pyc
+PKG-INFO
+top_level.txt
+SOURCES.txt
+dependency_links.txt

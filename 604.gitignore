@@ -1,0 +1,5 @@
+echo/lib/
+appengine*
+*.pyc
+*.backup
+echo/README.md
