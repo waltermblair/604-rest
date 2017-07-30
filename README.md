@@ -26,9 +26,9 @@ I created a storage bucket 'rest-uploads', though I don’t think that was neces
 Connecting Cloud SQL instance to Endpoints
     - (https://cloud.google.com/appengine/docs/standard/python/cloud-sql/)
     - app.yaml modifications:
-         CLOUDSQL_CONNECTION_NAME: rest-175101:us-east1:rest-604
-         CLOUDSQL_USER: root
-         CLOUDSQL_PASSWORD: askme!
+         CLOUDSQL_CONNECTION_NAME: rest-175101:us-east1:rest-604  
+         CLOUDSQL_USER: root  
+         CLOUDSQL_PASSWORD: askme!  
 
 HTTP
 
