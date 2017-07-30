@@ -57,12 +57,21 @@ Developing straight from echo code
     POST to storage
     - First hard-coded an insert into the code and it worked.
     - Cat'ing the same file into the insert content works great
+    - cat posts/post1.json | curl -H "Content-Type: application/json" -X POST -d @- https://rest-175101.appspot.com/_ah/api/echo/v1/echo
     
     GET from storage
     - Get returns a string of all the blog id's and contents, and I'm starting to feel like I'm completely torturing the API here ;)
+    - curl -X GET https://rest-175101.appspot.com/_ah/api/echo/v1/getPosts
+    
+    DELETE from storage
+    - hard-coded id
+        curl -X DELETE https://rest-175101.appspot.com/_ah/api/echo/v1/deletePost
+    - provided as arg
+        curl -X DELETE -d '{"content":"2"}' https://rest-175101.appspot.com/_ah/api/echo/v1/deletePost
     
     PUT from storage
-
+    - cat posts/post1.json | curl -H "Content-Type: application/json" -X PUT -d @- https://rest-175101.appspot.com/_ah/api/echo/v1/replacePost
+    
 
     
     

@@ -45,11 +45,10 @@ ECHO_RESOURCE = endpoints.ResourceContainer(
 @endpoints.api(name='echo', version='v1')
 class EchoApi(remote.Service):
     @endpoints.method(
-##        # This method takes an empty request body.
+        # This method takes an empty request body.
         message_types.VoidMessage,
-##        # This method returns an Echo message.
+        # This method returns an Echo message.
         EchoResponse,
-##        path='getPosts',
         http_method='GET',
         name='getPosts')
     def getPosts(self, request):
@@ -83,6 +82,60 @@ class EchoApi(remote.Service):
 	query = "INSERT INTO 604_db.posts(id, content) " \
                 "VALUES(%s, %s)"
         content = ' '.join([request.content] * request.n)
+        # id can easily be converted to datetime
+        args = (2, content)
+	try:
+		conn = db_connect.connect_to_cloudsql()
+		cursor = conn.cursor()	
+		cursor.execute(query, args)
+		if cursor.lastrowid:
+			print('last insert id', cursor.lastrowid)
+		else:
+			print('last insert id not found')
+		conn.commit()
+	except Error as error:
+		print(error)
+	finally:
+		cursor.close()
+		conn.close()
+        output_content = ' '.join([request.content] * request.n)
+        return EchoResponse(content=output_content)
+
+    @endpoints.method(
+        # This method takes a ResourceContainer defined above.
+        ECHO_RESOURCE,
+        # This method returns an Echo message.
+        EchoResponse,
+        http_method='DELETE',
+        name='deletePost')
+    def deletePost(self, request):
+        query = "DELETE FROM 604_db.posts WHERE id=%s"
+        arg = ' '.join(request.content)
+	try:
+		conn = db_connect.connect_to_cloudsql()
+		cursor = conn.cursor()	
+		cursor.execute(query, arg)
+                conn.commit()
+	except Error as error:
+		print(error)
+	finally:
+		cursor.close()
+		conn.close()
+##        output_content = ' '.join([request.content] * request.n)
+        return EchoResponse(content="deleted")
+
+    @endpoints.method(
+        # This method takes a ResourceContainer defined above.
+        ECHO_RESOURCE,
+        # This method returns an Echo message.
+        EchoResponse,
+        http_method='PUT',
+        name='replacePost')
+    def replacePost(self, request):
+	query = "REPLACE INTO 604_db.posts(id, content) " \
+                "VALUES(%s, %s)"
+        content = ' '.join([request.content] * request.n)
+        # id can easily be converted to datetime
         args = (2, content)
 	try:
 		conn = db_connect.connect_to_cloudsql()
