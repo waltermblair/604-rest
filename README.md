@@ -2,30 +2,30 @@ Followed Cloud endpoints framework tutorial in assignment
 
 Project ID: rest-175101
 
-I worked in live environment for lack of time to set up local server and such - don't forget to redeploy when i make changes:
-    -gcloud app deploy
+I worked in live environment for lack of time to set up local server and such - don't forget to redeploy when i make changes:  
+    -gcloud app deploy  
 
-Starting point from tutorial:
+Starting point from tutorial:  
 curl -H "Content-Type: application/json" -X POST -d '{"content":"hello world"}' https://rest-175101.appspot.com/_ah/api/echo/v1/echo
 
-Next step - POST above but from file contents
+Next step - POST above but from file contents  
 cat posts/post1.json | curl -H "Content-Type: application/json" -X POST -d @- https://rest-175101.appspot.com/_ah/api/echo/v1/echo
 
-Database
-Next, I made a Cloud SQL database
-I created a SQL instance and database named 604_db
- -Tutorial (https://cloud.google.com/sql/docs/mysql/quickstart)
- -gcloud sql connect rest-604 --user=root
- -create table 604_db.posts ( id INT NOT NULL, content VARCHAR(10000) NOT NULL, PRIMARY KEY(id) );
- -insert into 604_db.posts (id, content) VALUES (0, "test post 0 from inside mysql");
- -select * from 604_db.posts where id=0;
+Database  
+Next, I made a Cloud SQL database  
+I created a SQL instance and database named 604_db  
+ -Tutorial (https://cloud.google.com/sql/docs/mysql/quickstart)  
+ -gcloud sql connect rest-604 --user=root  
+ -create table 604_db.posts ( id INT NOT NULL, content VARCHAR(10000) NOT NULL, PRIMARY KEY(id) );  
+ -insert into 604_db.posts (id, content) VALUES (0, "test post 0 from inside mysql");  
+ -select * from 604_db.posts where id=0;  
 
-Enabled SQL API
-I created a storage bucket 'rest-uploads', though I don’t think that was necessary here
+Enabled SQL API  
+I created a storage bucket 'rest-uploads', though I don’t think that was necessary here  
 
-Connecting Cloud SQL instance to Endpoints
-    - (https://cloud.google.com/appengine/docs/standard/python/cloud-sql/)
-    - app.yaml modifications:
+Connecting Cloud SQL instance to Endpoints  
+    - (https://cloud.google.com/appengine/docs/standard/python/cloud-sql/)  
+    - app.yaml modifications:  
          CLOUDSQL_CONNECTION_NAME: rest-175101:us-east1:rest-604  
          CLOUDSQL_USER: root  
          CLOUDSQL_PASSWORD: askme!  
@@ -47,9 +47,9 @@ Testing REST operations from POSTMAN
         
         Having a hell of a time authenticating Postman - I don't receive the token...I tried removing Postman from my connect Google apps because I read that it won't resent the token if it's already connected. I did that ... both a past Postman app was connected from 659, but it also showed my recent attempt for this project connected. I removed both and tried requesting again, but now I don't see it as a connect app at all.
         
-Developing online
-    - Wrote a db_connect function that returns connection to Cloud SQL database
-    - Call db_connect in endpoints code
+Developing online  
+    - Wrote a db_connect function that returns connection to Cloud SQL database  
+    - Call db_connect in endpoints code  
 
     POST
     - First hard-coded an insert into the code and it worked.
