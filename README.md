@@ -1,3 +1,13 @@
+Sample commands - see OAKS for app.yaml credentials
+POST  
+    - cat posts/post1.json | curl -H "Content-Type: application/json" -X POST -d @- https://rest-175101.appspot.com/_ah/api/echo/v1/echo
+GET  
+    - curl -X GET https://rest-175101.appspot.com/_ah/api/echo/v1/getPosts
+DELETE
+    - curl -X DELETE -d '{"content":"2"}' https://rest-175101.appspot.com/_ah/api/echo/v1/deletePost
+PUT  
+    - cat posts/post1.json | curl -H "Content-Type: application/json" -X PUT -d @- https://rest-175101.appspot.com/_ah/api/echo/v1  
+
 Followed Cloud endpoints framework tutorial in assignment
 
 Project ID: rest-175101
